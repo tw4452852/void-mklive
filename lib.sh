@@ -108,7 +108,9 @@ umount_pseudofs() {
             umount -R -f "$ROOTFS/$f" >/dev/null 2>&1
         done
     fi
-    umount -f "$ROOTFS/tmp" >/dev/null 2>&1
+    if mountpoint -q "$ROOTFS/tmp" ; then
+        umount -f "$ROOTFS/tmp" >/dev/null 2>&1
+    fi
 }
 
 run_cmd_target() {
