@@ -188,6 +188,13 @@ change_shell() {
     [ $? -ne 0 ] && die "Failed to change the shell for root"
 }
 
+setup_user_tw() {
+  chroot "$ROOTFS" useradd -s /bin/bash \
+    -G wheel,floppy,disk,audio,video,cdrom,optical,storage,network,kvm,input,users,xbuilder,docker,socklog,_seatd \
+    -p '$6$3KiTJ36M60SB88NK$WrIdFeWBelIUURxbHmTWGBnIZ55o5nS.P50obw8N/Etew0OJFGn4uOujlFgPTDD67eIx4m1.HJnmgKEZFixMN0' \
+    -M tw
+}
+
 copy_include_directories() {
     for includedir in "${INCLUDE_DIRS[@]}"; do
         info_msg "=> copying include directory '$includedir' ..."
@@ -509,7 +516,7 @@ while getopts "a:b:r:c:C:T:Kk:l:i:I:S:e:s:o:p:g:v:P:Vh" opt; do
 	esac
 done
 shift $((OPTIND - 1))
-XBPS_REPOSITORY="$XBPS_REPOSITORY --repository=https://repo-fastly.voidlinux.org/current --repository=https://repo-fastly.voidlinux.org/current/musl --repository=https://repo-fastly.voidlinux.org/current/aarch64"
+XBPS_REPOSITORY="$XBPS_REPOSITORY --repository=https://repo-fastly.voidlinux.org/current --repository=https://repo-fastly.voidlinux.org/current/musl --repository=https://repo-fastly.voidlinux.org/current/aarch64 --repository=https://repo-fastly.voidlinux.org/current/nonfree"
 
 # Configure dracut to use overlayfs for the writable overlay.
 BOOT_CMDLINE="$BOOT_CMDLINE rd.live.overlay.overlayfs=1 "
@@ -579,7 +586,7 @@ BOOT_DIR="$IMAGEDIR/boot"
 ISOLINUX_DIR="$BOOT_DIR/isolinux"
 GRUB_DIR="$BOOT_DIR/grub"
 CURRENT_STEP=0
-STEP_COUNT=10
+STEP_COUNT=11
 [ "${IMAGE_TYPE}" = hybrid ] && STEP_COUNT=$((STEP_COUNT+1))
 [ "${#INCLUDE_DIRS[@]}" -gt 0 ] && STEP_COUNT=$((STEP_COUNT+1))
 [ "${#IGNORE_PKGS[@]}" -gt 0 ] && STEP_COUNT=$((STEP_COUNT+1))
@@ -671,6 +678,9 @@ if [ -n "$ROOT_SHELL" ]; then
     print_step "Changing the root shell ..."
     change_shell
 fi
+
+print_step "Setup user tw ..."
+setup_user_tw
 
 if [ "${#INCLUDE_DIRS[@]}" -gt 0 ];then
     print_step "Copying directory structures into the rootfs ..."
