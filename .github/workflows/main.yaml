@@ -1,0 +1,15 @@
+name: CI
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  build_and_test:
+    permissions:
+      contents: write
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/checkout@v3
+      - run: sudo ./mktw.sh
