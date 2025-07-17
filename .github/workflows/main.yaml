@@ -3,13 +3,26 @@ name: CI
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  build_and_test:
+  build_tw_iso:
     permissions:
       contents: write
     strategy:
       matrix:
         os: [ubuntu-latest]
     runs-on: ${{matrix.os}}
+
+    container:
+      image: 'ghcr.io/void-linux/void-mklive:20250116R1'
+      options: --privileged
+      volumes:
+        - /dev:/dev
+      env:
+        PATH: '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/usr/local/bin:/tmp/bin'
+
     steps:
-      - uses: actions/checkout@v3
-      - run: sudo ./mktw.sh
+      - name: Prepare container
+        shell: sh
+        run: xbps-install -Syu xbps && xbps-install -yu
+      - name: Clone and checkout
+        uses: classabbyamp/treeless-checkout-action@v1
+      - run: ./mktw.sh
