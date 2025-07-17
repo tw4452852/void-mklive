@@ -146,6 +146,12 @@ chmod +x ./inc/etc/rc.local
 # Timezone: Asia/Shanghai
 ln -sf /usr/share/zoneinfo/Asia/Shanghai ./inc/etc/localtime
 
+# Extra binaries
+mkdir -p ./inc/extra
+for i in ./extra/*.tar.gz; do
+  tar -xzf "$i" -C ./inc/extra
+done
+
 [ -f "tw-void.iso" ] && mv tw-void.iso old_tw-void.iso
 ./mklive.sh \
   -T "Tw voidlinux" \
