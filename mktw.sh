@@ -1,5 +1,19 @@
 #!/bin/bash
 
+set -e
+
+my_bootstrap_packages=(
+  git
+  parted
+)
+
+my_bootstrap_services=(
+  acpid
+  dhcpcd
+  sshd
+  wpa_supplicant
+)
+
 my_packages=(
   Bear
   alacritty
@@ -151,18 +165,34 @@ chmod +x ./inc/etc/rc.local
 # Timezone: Asia/Shanghai
 ln -sf /usr/share/zoneinfo/Asia/Shanghai ./inc/etc/localtime
 
-# Extra binaries
-mkdir -p ./inc/extra
-for i in ./extra/*.tar.gz; do
-  tar -xzf "$i" -C ./inc/extra
-done
+# Include ourselves
+mkdir -p ./inc/void-mklive
+git archive --format=tar HEAD | tar -C ./inc/void-mklive -xf -
+
+# Use environment _BS to build bootstrap iso
+function _packages() {
+  if [ -n "${_BS}" ] ;then
+    echo "${my_bootstrap_packages[*]}"
+  else
+    echo "${my_packages[*]}"
+  fi
+}
+
+function _services() {
+  if [ -n "${_BS}" ] ;then
+    echo "${my_bootstrap_services[*]}"
+  else
+    echo "${my_services[*]}"
+  fi
+}
 
 [ -f "tw-void.iso" ] && mv tw-void.iso old_tw-void.iso
+
 ./mklive.sh \
   -T "Tw voidlinux" \
-  -p "${my_packages[*]}" \
+  -p "$(_packages)" \
   -e "/bin/bash" \
-  -S "${my_services[*]}" \
+  -S "$(_services)" \
   -C "${my_kernel_cmdline}" \
   -I inc \
   -o "tw-void.iso" \
