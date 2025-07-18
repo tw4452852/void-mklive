@@ -10,6 +10,7 @@ my_packages=(
   cronie
   curl
   dbus
+  dejavu-fonts-ttf
   dmenu
   docker
   dust
@@ -40,16 +41,19 @@ my_packages=(
   libevdev-devel
   libinput-devel
   libxkbcommon-devel
+  lsof
   lswt
   lz4
   nss-mdns
   nvidia
   openresolv
   pamixer
+  parted
   pass
   pipewire
   pixman-devel
   pkg-config
+  psmisc
   qemu
   qutebrowser
   ripgrep
@@ -80,6 +84,7 @@ my_packages=(
   wpa_gui
   wqy-microhei
   xclip
+  xdg-utils
   xsel
   xtools
   xz
