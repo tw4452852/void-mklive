@@ -166,8 +166,10 @@ chmod +x ./inc/etc/rc.local
 ln -sf /usr/share/zoneinfo/Asia/Shanghai ./inc/etc/localtime
 
 # Include ourselves
-mkdir -p ./inc/void-mklive
-git archive --format=tar HEAD | tar -C ./inc/void-mklive -xf -
+if [ -d .git ]; then
+  mkdir -p ./inc/extra
+  git bundle create ./inc/extra/void-mklive.git.bundle HEAD
+fi
 
 # Use environment _BS to build bootstrap iso
 function _packages() {
