@@ -38,7 +38,6 @@ my_packages=(
   fd
   flatpak
   fontconfig
-  fontconfig-devel
   foot
   fuzzel
   fzf
@@ -51,21 +50,15 @@ my_packages=(
   jujutsu
   kak-lsp
   kakoune
-  libev-devel
-  libevdev-devel
-  libinput-devel
-  libxkbcommon-devel
   lsof
   lswt
   lz4
   nss-mdns
-  nvidia
   openresolv
   pamixer
   parted
   pass
   pipewire
-  pixman-devel
   pkg-config
   psmisc
   qemu
@@ -85,15 +78,12 @@ my_packages=(
   trace-cmd
   vim
   vmtouch
-  wayland-devel
-  wayland-protocols
   waylock
   wdisplays
   wget
   wireplumber
   wl-clipboard
   wlrctl
-  wlroots0.18-devel
   wmctrl
   wpa_gui
   wqy-microhei
