@@ -190,9 +190,11 @@ change_shell() {
 
 setup_user_tw() {
   chroot "$ROOTFS" useradd -s /bin/bash \
-    -G wheel,floppy,disk,audio,video,cdrom,optical,storage,network,kvm,input,users,xbuilder,docker,socklog,_seatd \
+    -U -G wheel,floppy,disk,audio,video,cdrom,optical,storage,network,kvm,input,users,xbuilder \
     -p '$6$3KiTJ36M60SB88NK$WrIdFeWBelIUURxbHmTWGBnIZ55o5nS.P50obw8N/Etew0OJFGn4uOujlFgPTDD67eIx4m1.HJnmgKEZFixMN0' \
-    -M tw
+    tw
+  # This could fail on bootstrap iso which is expected.
+  chroot "$ROOTFS" usermod -aG docker,socklog,_seatd tw
 }
 
 copy_include_directories() {

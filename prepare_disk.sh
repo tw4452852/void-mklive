@@ -67,5 +67,6 @@ mkfs.ext4 -L data $PART3
 mount $PART3 /mnt
 touch /mnt/rc.local
 chmod +x /mnt/rc.local
-mkdir -p /mnt/home/tw
+mkdir -p /mnt/home
+install -d -o tw -g tw /mnt/home/tw
 umount /mnt
