@@ -44,13 +44,8 @@ y
 EOF
 
 echo "Create partion3 for data, size: $reserved_size_gb G..."
-fdisk $DISK <<EOF
-n
-p
-3
- 
--0
-w
+sfdisk -a $DISK <<EOF
+,,L,
 EOF
 
 udevadm trigger --name-match=$DISK >/dev/null 2>&1
