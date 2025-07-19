@@ -5,7 +5,7 @@ set -eu
 
 function get_disk_part_name() {
     DISK=$1
-    
+
     if echo $DISK | grep -q "/dev/loop"; then
         echo ${DISK}p${2}
     elif echo $DISK | grep -q "/dev/nvme[0-9][0-9]*n[0-9]"; then
@@ -53,10 +53,10 @@ partprobe >/dev/null 2>&1
 sleep 3
 
 # Reformat part1 as ext4
-mkfs.ext4 $(get_disk_part_name $DISK 1)
+mkfs.ext4 -F $(get_disk_part_name $DISK 1)
 
 PART3=$(get_disk_part_name $DISK 3)
-mkfs.ext4 -L data $PART3
+mkfs.ext4 -F -L data $PART3
 
 # Necessary directories and files
 mount $PART3 /mnt
@@ -64,4 +64,12 @@ touch /mnt/rc.local
 chmod +x /mnt/rc.local
 mkdir -p /mnt/home
 install -d -o tw -g tw /mnt/home/tw
+sudo --user tw sh -c ' \
+  cd /mnt/home/tw && \
+  git init && \
+  git remote add origin https://github.com/tw4452852/MyConfig && \
+  git fetch && \
+  git checkout -ft origin/master && \
+  git config status.showUntrackedFiles no \
+'
 umount /mnt
