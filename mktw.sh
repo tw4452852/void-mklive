@@ -152,6 +152,14 @@ mount --make-rshared /
 EOF
 chmod +x ./inc/etc/rc.local
 
+# run user's rc.shutdown
+cat << 'EOF' > ./inc/etc/rc.shutdown
+#!/bin/sh
+
+[ -x /mnt/data/rc.shutdown ] && /mnt/data/rc.shutdown
+EOF
+chmod +x ./inc/etc/rc.shutdown
+
 # Timezone: Asia/Shanghai
 ln -sf /usr/share/zoneinfo/Asia/Shanghai ./inc/etc/localtime
 

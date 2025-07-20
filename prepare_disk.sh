@@ -60,8 +60,19 @@ mkfs.ext4 -F -L data $PART3
 
 # Necessary directories and files
 mount $PART3 /mnt
-touch /mnt/rc.local
+
+cat << 'EOF' > /mnt/rc.local
+#!/bin/sh
+
+EOF
 chmod +x /mnt/rc.local
+
+cat << 'EOF' > /mnt/rc.shutdown
+#!/bin/sh
+
+EOF
+chmod +x /mnt/rc.shutdown
+
 mkdir -p /mnt/home
 install -d -o tw -g tw /mnt/home/tw
 sudo --user tw sh -c ' \
