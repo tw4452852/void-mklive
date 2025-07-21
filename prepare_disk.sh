@@ -61,8 +61,16 @@ mkfs.ext4 -F -L data $PART3
 # Necessary directories and files
 mount $PART3 /mnt
 
+mkdir -p /mnt/docker
 cat << 'EOF' > /mnt/rc.local
 #!/bin/sh
+
+# Persist docker containers and volumes
+mkdir -p /etc/docker
+cat << 'EOF' >> /etc/docker/daemon.json
+{
+  "data-root": "/mnt/data/docker"
+}
 
 EOF
 chmod +x /mnt/rc.local
