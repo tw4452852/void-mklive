@@ -42,6 +42,7 @@ my_packages=(
   foot
   fuzzel
   fzf
+  gdb
   git
   go
   gopls
