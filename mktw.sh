@@ -61,6 +61,7 @@ my_packages=(
   pipewire
   pkg-config
   psmisc
+  python3-tldextract
   qemu
   qutebrowser
   ripgrep
