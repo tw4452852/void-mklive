@@ -53,7 +53,8 @@ partprobe >/dev/null 2>&1
 sleep 3
 
 # Reformat part1 as ext4
-mkfs.ext4 -F $(get_disk_part_name $DISK 1)
+PART1=$(get_disk_part_name $DISK 1)
+mkfs.ext4 -F $PART1
 
 PART3=$(get_disk_part_name $DISK 3)
 mkfs.ext4 -F -L data $PART3
@@ -67,7 +68,7 @@ cat << 'EOF' > /mnt/rc.local
 
 # Persist docker containers and volumes
 mkdir -p /etc/docker
-cat << 'EOF' >> /etc/docker/daemon.json
+cat << 'EOF' > /etc/docker/daemon.json
 {
   "data-root": "/mnt/data/docker"
 }
@@ -75,8 +76,20 @@ cat << 'EOF' >> /etc/docker/daemon.json
 EOF
 chmod +x /mnt/rc.local
 
-cat << 'EOF' > /mnt/rc.shutdown
+uuid1="$(blkid -s UUID -o value $PART1)"
+cat << EOF > /mnt/rc.shutdown
 #!/bin/sh
+
+dm1="\$(blkid | grep $uuid1 | grep /dev/mapper | cut -d':' -f1)"
+
+mount \$dm1 /mnt
+
+if [ -e /mnt/new.iso ]; then
+    [ -e /mnt/tw-void.iso ] && mv -v /mnt/tw-void.iso /mnt/old.iso
+    mv -v /mnt/new.iso /mnt/tw-void.iso
+fi
+
+umount /mnt
 
 EOF
 chmod +x /mnt/rc.shutdown
