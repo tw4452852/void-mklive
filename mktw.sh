@@ -21,6 +21,7 @@ my_packages=(
   avahi-utils
   caddy
   carapace
+  cmake
   cronie
   curl
   dbus
