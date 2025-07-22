@@ -73,6 +73,7 @@ my_packages=(
   seatd
   sioyek
   slurp
+  snooze
   socklog-void
   strace
   tio
