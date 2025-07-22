@@ -19,6 +19,7 @@ my_packages=(
   alacritty
   avahi
   avahi-utils
+  base-devel
   caddy
   carapace
   cmake
@@ -39,6 +40,7 @@ my_packages=(
   fd
   flatpak
   fontconfig
+  fontconfig-devel
   foot
   fuzzel
   fzf
@@ -52,6 +54,7 @@ my_packages=(
   jujutsu
   kak-lsp
   kakoune
+  libxkbcommon-devel
   lsof
   lswt
   lz4
@@ -82,6 +85,7 @@ my_packages=(
   trace-cmd
   vim
   vmtouch
+  wayland-devel
   waylock
   wdisplays
   wget
