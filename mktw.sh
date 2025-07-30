@@ -156,6 +156,17 @@ cat << 'EOF' > ./inc/etc/rc.local
 
 mount --make-rshared /
 
+modprobe zram
+zramctl /dev/zram0 --algorithm zstd --size "$(($(grep -Po 'MemTotal:\s*\K\d+' /proc/meminfo)/2))KiB"
+mkswap -U clear /dev/zram0
+swapon --discard --priority 100 /dev/zram0
+
+# https://wiki.archlinux.org/title/Zram#Optimizing_swap_on_zram
+sysctl -w vm.swappiness=100
+sysctl -w vm.watermark_boost_factor=0
+sysctl -w vm.watermark_scale_factor=125
+sysctl -w vm.page-cluster=0
+
 [ -x /mnt/data/rc.local ] && /mnt/data/rc.local
 EOF
 chmod +x ./inc/etc/rc.local
