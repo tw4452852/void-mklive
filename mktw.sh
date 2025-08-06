@@ -54,6 +54,7 @@ my_packages=(
   jujutsu
   kak-lsp
   kakoune
+  libcgroup-utils
   libxkbcommon-devel
   lsof
   lswt
@@ -106,6 +107,7 @@ my_packages=(
 my_services=(
   acpid
   avahi-daemon
+  cgred
   cronie
   dbus
   dhcpcd
@@ -181,6 +183,44 @@ chmod +x ./inc/etc/rc.shutdown
 
 # Timezone: Asia/Shanghai
 ln -sf /usr/share/zoneinfo/Asia/Shanghai ./inc/etc/localtime
+
+# Put all user tw's processes to tw cgroup
+cat << 'EOF' > ./inc/etc/cgconfig.conf
+group tw {
+  perm {
+    task {
+      uid = tw;
+      gid = tw;
+    }
+    admin {
+      uid = tw;
+      gid = tw;
+    }
+  }
+  cpuset {}
+  cpu {}
+  io {}
+  memory {}
+  hugetlb {}
+  pids {}
+  rdma {}
+  misc {}
+}
+group tw/default {
+  cpuset {}
+  cpu {}
+  io {}
+  memory {}
+  hugetlb {}
+  pids {}
+  rdma {}
+  misc {}
+}
+EOF
+
+cat << 'EOF' > ./inc/etc/cgrules.conf
+tw * /tw/default
+EOF
 
 # Include ourselves
 if [ -d .git ]; then
