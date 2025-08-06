@@ -117,7 +117,7 @@ my_services=(
   wpa_supplicant
 )
 
-my_kernel_cmdline="loglevel=4 nvidia_drm.modeset=1 transparent_hugepage=always"
+my_kernel_cmdline="loglevel=4 nvidia_drm.modeset=1"
 
 trap 'rm -fr ./inc' INT TERM 0
 
