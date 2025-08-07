@@ -194,7 +194,7 @@ setup_user_tw() {
     -p '$6$3KiTJ36M60SB88NK$WrIdFeWBelIUURxbHmTWGBnIZ55o5nS.P50obw8N/Etew0OJFGn4uOujlFgPTDD67eIx4m1.HJnmgKEZFixMN0' \
     tw
   # This could fail on bootstrap iso which is expected.
-  chroot "$ROOTFS" usermod -aG docker,socklog,_seatd tw
+  chroot "$ROOTFS" usermod -aG socklog,_seatd tw
 }
 
 copy_include_directories() {
