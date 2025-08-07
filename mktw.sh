@@ -28,7 +28,6 @@ my_packages=(
   dbus
   dejavu-fonts-ttf
   dmenu
-  docker
   dust
   elvish
   fcitx5
@@ -66,6 +65,7 @@ my_packages=(
   pass
   pipewire
   pkg-config
+  podman
   psmisc
   python3-tldextract
   qemu
@@ -111,7 +111,6 @@ my_services=(
   cronie
   dbus
   dhcpcd
-  docker
   nanoklogd
   seatd
   socklog-unix
