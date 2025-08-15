@@ -163,7 +163,7 @@ mkswap -U clear /dev/zram0
 swapon --discard --priority 100 /dev/zram0
 
 # https://wiki.archlinux.org/title/Zram#Optimizing_swap_on_zram
-sysctl -w vm.swappiness=100
+sysctl -w vm.swappiness=180
 sysctl -w vm.watermark_boost_factor=0
 sysctl -w vm.watermark_scale_factor=125
 sysctl -w vm.page-cluster=0
