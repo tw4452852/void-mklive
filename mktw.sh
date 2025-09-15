@@ -171,6 +171,12 @@ chmod +x ./inc/etc/rc.shutdown
 # Timezone: Asia/Shanghai
 ln -sf /usr/share/zoneinfo/Asia/Shanghai ./inc/etc/localtime
 
+# Hostname
+if [ -z "$my_hostname" ]; then
+  my_hostname="tw-void"
+fi
+echo "$my_hostname" > ./inc/etc/hostname
+
 # Put all user tw's processes to tw cgroup
 cat << 'EOF' > ./inc/etc/cgconfig.conf
 group tw {
