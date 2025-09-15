@@ -2,18 +2,6 @@
 
 set -e
 
-my_bootstrap_packages=(
-  git
-  parted
-)
-
-my_bootstrap_services=(
-  acpid
-  dhcpcd
-  sshd
-  wpa_supplicant
-)
-
 my_packages=(
   Bear
   alacritty
@@ -227,30 +215,13 @@ if [ -d .git ]; then
   git bundle create ./inc/extra/void-mklive.git.bundle HEAD
 fi
 
-# Use environment _BS to build bootstrap iso
-function _packages() {
-  if [ -n "${_BS}" ] ;then
-    echo "${my_bootstrap_packages[*]}"
-  else
-    echo "${my_packages[*]}"
-  fi
-}
-
-function _services() {
-  if [ -n "${_BS}" ] ;then
-    echo "${my_bootstrap_services[*]}"
-  else
-    echo "${my_services[*]}"
-  fi
-}
-
 [ -f "tw-void.iso" ] && mv tw-void.iso old_tw-void.iso
 
 ./mklive.sh \
   -T "Tw voidlinux" \
-  -p "$(_packages)" \
+  -p "${my_packages[*]}" \
   -e "/bin/bash" \
-  -S "$(_services)" \
+  -S "${my_services[*]}" \
   -C "${my_kernel_cmdline}" \
   -I inc \
   -o "tw-void.iso" \
