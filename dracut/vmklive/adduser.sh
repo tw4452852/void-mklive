@@ -6,7 +6,7 @@ if ! type getarg >/dev/null 2>&1 && ! type getargbool >/dev/null 2>&1; then
     . /lib/dracut-lib.sh
 fi
 
-echo void-live > ${NEWROOT}/etc/hostname
+#echo void-live > ${NEWROOT}/etc/hostname
 
 USERNAME=$(getarg live.user)
 USERSHELL=$(getarg live.shell)
