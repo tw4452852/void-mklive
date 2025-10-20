@@ -4,10 +4,10 @@ set -e
 
 my_packages=(
   Bear
-  alacritty
   avahi
   avahi-utils
   base-devel
+  btop
   caddy
   carapace
   cmake
@@ -36,7 +36,6 @@ my_packages=(
   go
   gopls
   grim
-  htop
   jq
   jujutsu
   kak-lsp
@@ -46,6 +45,7 @@ my_packages=(
   lsof
   lswt
   lz4
+  mesa-dri
   nss-mdns
   openresolv
   pamixer
@@ -68,6 +68,7 @@ my_packages=(
   snooze
   socklog-void
   strace
+  tailscale
   tio
   tiramisu
   tmux
@@ -86,6 +87,7 @@ my_packages=(
   wqy-microhei
   xclip
   xdg-utils
+  xmirror
   xsel
   xtools
   xz
