@@ -7,6 +7,7 @@ my_packages=(
   avahi
   avahi-utils
   base-devel
+  bluez
   btop
   caddy
   carapace
@@ -41,6 +42,7 @@ my_packages=(
   kak-lsp
   kakoune
   libcgroup-utils
+  libspa-bluetooth
   libxkbcommon-devel
   lsof
   lswt
@@ -97,6 +99,7 @@ my_packages=(
 my_services=(
   acpid
   avahi-daemon
+  bluetoothd
   cgred
   cronie
   dbus
