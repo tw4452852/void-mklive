@@ -42,6 +42,7 @@ my_packages=(
   kak-lsp
   kakoune
   libcgroup-utils
+  libsixel-devel
   libspa-bluetooth
   libxkbcommon-devel
   lsof
