@@ -91,7 +91,7 @@ install -d -o tw -g tw /mnt/home/tw
 sudo --user tw sh -c ' \
   cd /mnt/home/tw && \
   git init && \
-  git remote add origin https://github.com/tw4452852/MyConfig && \
+  git remote add origin https://codeberg.org/Totorow/home && \
   git fetch && \
   git checkout -ft origin/master && \
   git config status.showUntrackedFiles no \
