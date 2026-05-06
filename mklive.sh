@@ -728,5 +728,6 @@ generate_squashfs
 print_step "Generating ISO image..."
 generate_iso_image
 
-hsize=$(du -sh "$OUTPUT_FILE"|awk '{print $1}')
+sync
+hsize=$(stat -c '%s' "$OUTPUT_FILE" | numfmt --to=iec)
 info_msg "Created $(readlink -f "$OUTPUT_FILE") ($hsize) successfully."
