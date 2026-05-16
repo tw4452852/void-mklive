@@ -207,13 +207,6 @@ change_shell() {
     [ $? -ne 0 ] && die "Failed to change the shell for root"
 }
 
-setup_user_tw() {
-  chroot "$ROOTFS" useradd -s /bin/bash \
-    -U -G wheel,floppy,disk,audio,video,cdrom,optical,storage,network,kvm,input,users,xbuilder,socklog,_seatd,bluetooth \
-    -p '$6$3KiTJ36M60SB88NK$WrIdFeWBelIUURxbHmTWGBnIZ55o5nS.P50obw8N/Etew0OJFGn4uOujlFgPTDD67eIx4m1.HJnmgKEZFixMN0' \
-    tw
-}
-
 copy_include_directories() {
     for includedir in "${INCLUDE_DIRS[@]}"; do
         info_msg "=> copying include directory '$includedir' ..."
@@ -701,9 +694,6 @@ if [ -n "$ROOT_SHELL" ]; then
     print_step "Changing the root shell ..."
     change_shell
 fi
-
-print_step "Setup user tw ..."
-setup_user_tw
 
 if [ "${#INCLUDE_DIRS[@]}" -gt 0 ];then
     print_step "Copying directory structures into the rootfs ..."

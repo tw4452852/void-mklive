@@ -237,4 +237,5 @@ fi
   -C "${my_kernel_cmdline}" \
   -I inc \
   -o "tw-void.iso" \
+  -x ./postsetup.sh \
   "$@"
