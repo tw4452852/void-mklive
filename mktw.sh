@@ -59,7 +59,10 @@ my_packages=(
   podman
   psmisc
   python3-tldextract
-  qemu
+  qemu-system-aarch64
+  qemu-system-amd64
+  qemu-user-aarch64
+  qemu-user-amd64
   qutebrowser
   ripgrep
   river
