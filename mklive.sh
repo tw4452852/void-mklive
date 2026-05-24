@@ -151,7 +151,7 @@ post_install_packages() {
 
 install_packages() {
     XBPS_ARCH=$TARGET_ARCH "${XBPS_INSTALL_CMD}" -r "$ROOTFS" \
-        ${XBPS_REPOSITORY} -c "$XBPS_CACHEDIR" -yn "${PACKAGE_LIST[@]}" "${INITRAMFS_PKGS[@]}"
+        ${XBPS_REPOSITORY} -c "$XBPS_CACHEDIR" -yn "${PACKAGE_LIST[@]}" "${INITRAMFS_PKGS[@]}" | sort -n -k 5,5
     [ $? -ne 0 ] && die "Missing required binary packages, exiting..."
 
     mount_pseudofs
