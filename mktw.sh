@@ -227,7 +227,8 @@ if [ -d .git ]; then
   git bundle create ./inc/extra/void-mklive.git.bundle HEAD
 fi
 
-[ -f "tw-void.iso" ] && mv tw-void.iso old_tw-void.iso
+iso_name="${my_hostname}-$(git rev-parse --short HEAD).iso"
+[ -f "$iso_name" ] && mv "$iso_name" "${iso_name}.old"
 
 ./mklive.sh \
   -T "Tw voidlinux" \
@@ -236,6 +237,6 @@ fi
   -S "${my_services[*]}" \
   -C "${my_kernel_cmdline}" \
   -I inc \
-  -o "tw-void.iso" \
+  -o "$iso_name" \
   -x ./postsetup.sh \
   "$@"
