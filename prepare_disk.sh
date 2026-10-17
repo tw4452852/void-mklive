@@ -90,10 +90,9 @@ mkdir -p /mnt/home
 install -d -o tw -g tw /mnt/home/tw
 sudo --user tw sh -c ' \
   cd /mnt/home/tw && \
-  git init && \
-  git remote add origin https://codeberg.org/Totorow/home && \
-  git fetch && \
-  git checkout -ft origin/master && \
-  git config status.showUntrackedFiles no \
+  mkdir code && cd code && \
+  git clone --mirror https://codeberg.org/Totorow/home.git home.git && cd home.git && \
+  mkdir info && echo "*" >> info/exclude && \
+  cd /mnt/home/tw && jj git init --git-repo ./code/home.git
 '
 umount /mnt
