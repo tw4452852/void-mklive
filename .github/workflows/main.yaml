@@ -1,6 +1,11 @@
 name: CI
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  push: {}
+  pull_request: {}
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0 0 * * *'  # This runs the workflow every day at midnight UTC
 
 jobs:
   build_tw_iso:
@@ -30,6 +35,9 @@ jobs:
       - name: Log in to Docker Hub
         run: |
           echo "${{ secrets.REGISTRY_PASSWORD }}" | oras login --username "${{ secrets.REGISTRY_USERNAME }}" --password-stdin docker.io
-      - name: Push ISO File with ORAS
+      - name: Delete old one
+        run: |
+          oras manifest delete --force docker.io/tw4452852/void-mklive:latest
+      - name: Push new one
         run: |
           oras push docker.io/tw4452852/void-mklive:latest $(ls -t *.iso | head -n 1)
