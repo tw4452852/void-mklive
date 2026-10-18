@@ -26,3 +26,10 @@ jobs:
       - name: Clone and checkout
         uses: classabbyamp/treeless-checkout-action@v1
       - run: ./mktw.sh
+      - uses: oras-project/setup-oras@v2
+      - name: Log in to Docker Hub
+        run: |
+          echo "${{ secrets.REGISTRY_PASSWORD }}" | oras login --username "${{ secrets.REGISTRY_USERNAME }}" --password-stdin docker.io
+      - name: Push ISO File with ORAS
+        run: |
+          oras push docker.io/tw4452852/void-mklive:latest $(ls -t *.iso | head -n 1)
