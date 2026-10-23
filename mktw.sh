@@ -230,7 +230,7 @@ if [ -d .git ]; then
   git bundle create ./inc/extra/void-mklive.git.bundle HEAD
 fi
 
-iso_name="${my_hostname}-$(git rev-parse --short HEAD).iso"
+iso_name="${my_hostname}-$(git rev-parse --short HEAD)-$(date -I).iso"
 [ -f "$iso_name" ] && mv "$iso_name" "${iso_name}.old"
 
 ./mklive.sh \
