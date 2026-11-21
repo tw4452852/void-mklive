@@ -50,6 +50,7 @@ my_packages=(
   lz4
   mesa-dri
   nss-mdns
+  offpunk
   openresolv
   pamixer
   parted
